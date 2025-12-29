@@ -3,4 +3,4 @@ kind: Kustomization
 resources:
   - elasticsearch.yaml
   - pdb.yaml
-  - network-policy.yaml
+  - networkpolicy.yaml
