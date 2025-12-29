@@ -5,19 +5,16 @@ metadata:
   namespace: observability
 spec:
   podSelector: {}
-  policyTypes:  
+  policyTypes:
     - Egress
   egress:
     - to:
-        - namespaceSelector: {} # Allows egress to all namespaces
+        - namespaceSelector:
             matchLabels:
-              kubernetes.io/metadata-name: kube-system
+              kubernetes.io/metadata.name: kube-system
           podSelector:
             matchLabels:
-              k8s-app: kube-dns 
+              k8s-app: kube-dns
       ports:
-        - protocol: UDP 
+        - protocol: UDP
           port: 53
-
-
-
