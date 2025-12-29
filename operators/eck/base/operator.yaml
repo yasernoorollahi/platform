@@ -1,0 +1,15 @@
+apiVersion: apps/v1
+kind: statefulset
+metadata:
+  name: elastic-operator
+  namespace: elastic-system
+spec:
+  template:
+    metadata:
+      labels:
+        control-plane: elastic-operator
+    spec:
+      serviceAccountName: elastic-operator
+      containers:
+        - name: manager
+          image: docker.elastic.co/eck/eck-operator:2.11.0

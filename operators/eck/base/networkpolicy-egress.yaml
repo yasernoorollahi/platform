@@ -1,0 +1,31 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: eck-operator-egress
+  namespace: elastic-system
+spec:
+  podSelector:
+    matchLabels:
+      control-plane: elastic-operator
+  policyTypes:
+    - Egress
+  egress:
+    # 1️⃣ Kubernetes API Server Access
+    - to:
+        -ipBlock:
+          cidr: 10.96.0.1/32 # Cluster DNS IP
+      ports:
+        - protocol: Tcp
+          port: 443 # HTTPS port for secure communication
+
+    # 2️⃣ DNS Access
+    - to:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata-name: kube-system
+          podSelector:
+            matchLabels:
+              k8s-app: kube-dns
+      ports:
+        - protocol: UDP
+          port: 53

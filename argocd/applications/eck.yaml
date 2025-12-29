@@ -1,0 +1,16 @@
+apiVersion: argocd.argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: eck
+  namespace: argocd
+
+spec:
+  project: observability
+
+  source:
+    repoURL: 'https://github.com/yasernoorollahi/platform.git'
+    targetRevision: main
+    path: operators/eck/base
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: elastic-system

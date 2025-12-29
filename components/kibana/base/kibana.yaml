@@ -1,0 +1,24 @@
+apiVersion: kibana.k8s.elastic.co/v1
+kind: Kibana
+metadata:
+  name: kibana-prod
+  namespace: observability
+spec:
+  version: 8.11.1
+  count: 1
+  elasticsearchRef:
+    name: es-prod
+  podTemplate:
+    metadata:
+      labels:
+        app: kibana
+    spec:
+      containers:
+        - name: kibana
+          resources:
+            requests:
+              memory: 1Gi
+              cpu: 500m
+            limits:
+              memory: 1Gi
+              cpu: 500m

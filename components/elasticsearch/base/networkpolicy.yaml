@@ -1,0 +1,58 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: elasticsearch-network
+  namespace: observability
+spec:
+  podSelector:
+    matchLabels:
+      app: elasticsearch
+
+  policyTypes:
+    - Ingress
+    - Egress
+  ingress:
+    # 1️⃣ ES ↔ ES (cluster)
+    - from:
+        - podSelector:
+            matchLabels:
+              app: elasticsearch
+      ports:
+        - protocol: TCP
+          port: 9300
+
+    # 2️⃣ HTTP API (بعداً Kibana / Ingress)
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              purpose: observability
+      ports:
+        - protocol: TCP
+          port: 9200
+  egress:
+    # 3️⃣ DNS Access
+    - to:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata-name: kube-system
+          podSelector:
+            matchLabels:
+              k8s-app: kube-dns
+      ports:
+        - protocol: UDP
+          port: 53
+
+    # 4️⃣ ES ↔ ES (cluster)
+    - to:
+        - podSelector:
+            matchLabels:
+              app: elasticsearch
+      ports:
+        - protocol: TCP
+          port: 9300
+
+    # 5️⃣ ECK Operator Access
+    - to:
+        - namespaceSelector:
+            matchLabels:
+              control-plane: eck

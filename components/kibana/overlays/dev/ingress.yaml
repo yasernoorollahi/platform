@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: ingress
+metadata:
+  name: kibana
+  namespace: observability
+  annotations:
+    cert-manager.io/cluster-issuer: selfsigned
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - kibana.local
+      secretName: kibana-tls
+  rules:
+    - host: kibana.local
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: kibana-prod-kb-http
+                port:
+                  number: 5601
