@@ -5,8 +5,10 @@ resources:
   # - https://download.elastic.co/downloads/eck/2.13.0/operator.yaml # ECK Operator
   # - github.com/elastic/cloud-on-k8s/config/crds?ref=2.13.0
   # - github.com/elastic/cloud-on-k8s/config/operator?ref=2.13.0
-  - github.com/elastic/cloud-on-k8s/config/crds?ref=v2.13.0
-  - github.com/elastic/cloud-on-k8s/config/operator?ref=v2.13.0
+  # - github.com/elastic/cloud-on-k8s/config/crds?ref=v2.13.0
+  # - github.com/elastic/cloud-on-k8s/config/operator?ref=v2.13.0
+  - github.com/elastic/cloud-on-k8s//config/crds?ref=v2.13.0
+  - github.com/elastic/cloud-on-k8s//config/operator?ref=v2.13.0
   - networkpolicy-egress.yaml
   # - namespace.yaml
   # - serviceaccount.yaml
