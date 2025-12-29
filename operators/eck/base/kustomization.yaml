@@ -4,4 +4,4 @@ resources:
   - namespace.yaml
   - https://download.elastic.co/downloads/eck/2.11.0/crds.yaml # ECK CRDs
   - operator.yaml
-  - network-policy.yaml
+  - networkpolicy-egress.yaml
