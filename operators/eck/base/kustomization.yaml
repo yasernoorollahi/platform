@@ -3,6 +3,8 @@ kind: Kustomization
 resources:
   - namespace.yaml
   - serviceaccount.yaml
+  - role.yaml
+  - rolebinding.yaml
   - https://download.elastic.co/downloads/eck/2.13.0/crds.yaml # ECK CRDs
   - operator.yaml
   - networkpolicy-egress.yaml
