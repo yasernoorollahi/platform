@@ -1,9 +1,13 @@
 apiVersion: apps/v1
-kind: statefulset
+kind: Deployment
 metadata:
   name: elastic-operator
   namespace: elastic-system
 spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      control-plane: elastic-operator
   template:
     metadata:
       labels:

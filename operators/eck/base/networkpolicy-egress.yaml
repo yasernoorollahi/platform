@@ -10,19 +10,19 @@ spec:
   policyTypes:
     - Egress
   egress:
-    # 1️⃣ Kubernetes API Server Access
+    # Kubernetes API Server
     - to:
-        -ipBlock:
-          cidr: 10.96.0.1/32 # Cluster DNS IP
+        - ipBlock:
+            cidr: 10.96.0.1/32
       ports:
-        - protocol: Tcp
-          port: 443 # HTTPS port for secure communication
+        - protocol: TCP
+          port: 443
 
-    # 2️⃣ DNS Access
+    # DNS
     - to:
         - namespaceSelector:
             matchLabels:
-              kubernetes.io/metadata-name: kube-system
+              kubernetes.io/metadata.name: kube-system
           podSelector:
             matchLabels:
               k8s-app: kube-dns
