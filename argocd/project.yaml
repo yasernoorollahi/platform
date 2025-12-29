@@ -10,6 +10,8 @@ spec:
   destinations:
     - namespace: observability
       server: 'https://kubernetes.default.svc'
+    - namespace: elastic-system
+      server: https://kubernetes.default.svc
   clusterResourceWhitelist:
     - group: '*'
       kind: '*'
