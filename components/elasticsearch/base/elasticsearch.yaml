@@ -4,23 +4,40 @@ metadata:
   name: es-prod
   namespace: observability
 spec:
-  version: 8.11.1
+  version: 8.19.3
   nodeSets:
     - name: default
       count: 1
       config:
         node.store.allow_mmap: false
+
+        # Disable ML to reduce memory
+        xpack.ml.enabled: false
+
+        # Disable internal monitoring collectors
+        xpack.monitoring.collection.enabled: false
+
       podTemplate:
-        metadata:
-          labels:
-            app: elasticsearch
         spec:
           containers:
             - name: elasticsearch
+              env:
+                - name: ES_JAVA_OPTS
+                  value: '-Xms768m -Xmx768m'
               resources:
                 requests:
-                  memory: 2Gi
-                  cpu: 1
+                  memory: 1Gi
+                  cpu: 250m
                 limits:
                   memory: 2Gi
                   cpu: 1
+
+      volumeClaimTemplates:
+        - metadata:
+            name: elasticsearch-data
+          spec:
+            accessModes: ['ReadWriteOnce']
+            storageClassName: local-path
+            resources:
+              requests:
+                storage: 5Gi
