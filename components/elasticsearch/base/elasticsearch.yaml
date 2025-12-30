@@ -3,6 +3,8 @@ kind: Elasticsearch
 metadata:
   name: es-cluster-dev
   namespace: observability
+  annotations:
+    argocd.argoproj.io/sync-options: Replace=false,SkipDryRunOnMissingResource=true
 spec:
   version: 8.19.3
   nodeSets:
@@ -10,13 +12,8 @@ spec:
       count: 1
       config:
         node.store.allow_mmap: false
-
-        # Disable ML to reduce memory
         xpack.ml.enabled: false
-
-        # Disable internal monitoring collectors
         xpack.monitoring.collection.enabled: false
-
       podTemplate:
         spec:
           containers:
@@ -31,7 +28,6 @@ spec:
                 limits:
                   memory: 2Gi
                   cpu: 1
-
       volumeClaimTemplates:
         - metadata:
             name: elasticsearch-data
