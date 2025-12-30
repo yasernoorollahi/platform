@@ -2,7 +2,7 @@ apiVersion: elasticsearch.k8s.elastic.co/v1
 kind: Elasticsearch
 metadata:
   name: es-cluster-dev
-  namespace: analytics
+  namespace: observability
 spec:
   version: 8.19.3
   nodeSets:
