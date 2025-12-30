@@ -1,7 +1,7 @@
 apiVersion: elasticsearch.k8s.elastic.co/v1
 kind: Elasticsearch
 metadata:
-  name: es-cluster-dev
+  name: es-prod
   namespace: observability
   annotations:
     argocd.argoproj.io/sync-options: Replace=false,SkipDryRunOnMissingResource=true
